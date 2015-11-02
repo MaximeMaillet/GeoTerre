@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GeoTerre.iml" filepath="$PROJECT_DIR$/GeoTerre.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GeoTerreGit.iml" filepath="$PROJECT_DIR$/GeoTerreGit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
