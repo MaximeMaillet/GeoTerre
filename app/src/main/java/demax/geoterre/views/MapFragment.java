@@ -79,57 +79,26 @@ public class MapFragment extends Fragment {
         return v;
     }
 
-    private void setCameraDefaultPosition()
-    {
-        SharedPreferences sharpref = mMapView.getContext().getSharedPreferences(DataLoader.SHAP_PARCELLE, Context.MODE_PRIVATE);
-        int IDLastParcelle = sharpref.getInt(DataLoader.SHAP_LAST_PARCELLE, 2);
-        Parcelle p = ListParcelle.getInstance().getParcelleByID(IDLastParcelle);
-        LatLng ltlg = p.getCoordonnes().get(0);
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(ltlg).zoom(16).build();
-        myMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-    }
-
-    private void applyFeaturesMap()
-    {
+    /**
+     * Set up features of Map
+     */
+    private void applyFeaturesMap() {
         myMap = mMapView.getMap();
         myMap.getUiSettings().setZoomGesturesEnabled(true);
         myMap.setMyLocationEnabled(true);
         myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
     }
 
-
-
-
-
-
-
-
-
-    public LatLng getLocation()
-    {
-        LocationManager locationManager = (LocationManager) map.getSystemService(Context.LOCATION_SERVICE);
-        MyLocationListener mLL = new MyLocationListener();
-        LocationListener locationListener = mLL;
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
-
-        if (locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER )) {
-            return mLL.getLatLng();
-        }
-        else
-            return new LatLng(0,0);
-
-    }
-
     /**
      * Permet de dessiner les parcelles
      */
-    public void drawParcelle() {
+    private void drawParcelle() {
         for (Parcelle p : ListParcelle.getInstance()) {
             Marker m = myMap.addMarker(new MarkerOptions()
                     .position(p.getCoordonnes().get(0))
                     .title(p.getNom())
                     .snippet("Surface: " + p.getSurface() + "m"));
-                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+            //.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
 
             myMap.addPolygon(new PolygonOptions()
                     .add(p.getCoordonnes().get(0), p.getCoordonnes().get(1), p.getCoordonnes().get(2), p.getCoordonnes().get(3))
@@ -140,6 +109,44 @@ public class MapFragment extends Fragment {
             MapsMainActivity.dicoMarkerParcelle.put(m, p);
         }
     }
+
+    /**
+     * This method place camera on last parcelle selected
+     * If no parcelle selected : on GPS
+     * If no gps : on first parcelle
+     */
+    private void setCameraDefaultPosition() {
+        SharedPreferences sharpref = mMapView.getContext().getSharedPreferences(DataLoader.SHAP_PARCELLE, Context.MODE_PRIVATE);
+        Parcelle p = ListParcelle.getInstance().getFirstParcelle();
+        int IDLastParcelle = sharpref.getInt(DataLoader.SHAP_LAST_PARCELLE, 0);
+        LatLng ltlg = (this.getLocation().latitude == 0.00) ? p.getCoordonnes().get(0) : this.getLocation();
+
+        if(IDLastParcelle != 0) {
+            p = ListParcelle.getInstance().getParcelleByID(IDLastParcelle);
+            ltlg = p.getCoordonnes().get(0);
+        }
+
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(ltlg).zoom(16).build();
+        myMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    /**
+     * Allow to return current location of user or 0,0 if user disabled gps
+     * @return LatLng
+     */
+    public LatLng getLocation() {
+        LocationManager locationManager = (LocationManager) mMapView.getContext().getSystemService(Context.LOCATION_SERVICE);
+        MyLocationListener mLL = new MyLocationListener();
+        LocationListener locationListener = mLL;
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+
+        if (locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER )) {
+            return mLL.getLatLng();
+        }
+        else
+            return new LatLng(0,0);
+    }
+
 
     public void activeScrolling(boolean active)
     {

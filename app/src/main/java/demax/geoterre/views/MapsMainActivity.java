@@ -1,5 +1,6 @@
 package demax.geoterre.views;
 
+        import android.app.Activity;
         import android.app.FragmentManager;
         import android.app.FragmentTransaction;
         import android.content.Context;
@@ -24,7 +25,7 @@ package demax.geoterre.views;
         import demax.geoterre.application.models.ListParcelle;
         import demax.geoterre.application.network.Response;
 
-public class MapsMainActivity extends MyViews {
+public class MapsMainActivity extends Activity {
 
     private TextView textTest;
     //
@@ -53,6 +54,7 @@ public class MapsMainActivity extends MyViews {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         this.map = new MapFragment();
+        this.map.setMap(this);
         fragmentTransaction.add(R.id.myMapFragment, this.map);
         fragmentTransaction.commit();
 
@@ -70,9 +72,6 @@ public class MapsMainActivity extends MyViews {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_maps_main, menu);
         return true;
-    }
-    @Override
-    public void exec(Response myObj) {
     }
 
     /**

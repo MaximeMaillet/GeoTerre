@@ -114,6 +114,8 @@ public class ParcelleLoader extends DataLoader {
             }
 
             Parcelle p = new Parcelle(values.getJSONObject(i).getInt("IDParcelle"),
+                    values.getJSONObject(i).getString("IDCepage"),
+                    values.getJSONObject(i).getString("libelle"),
                     values.getJSONObject(i).getString("nom"),
                     values.getJSONObject(i).getDouble("surface"),
                     values.getJSONObject(i).getInt("nombreroute"),

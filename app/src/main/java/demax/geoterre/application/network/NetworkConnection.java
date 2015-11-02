@@ -9,8 +9,6 @@ import java.net.Socket;
 
 import android.os.AsyncTask;
 
-import demax.geoterre.views.MyViews;
-
 public class NetworkConnection extends AsyncTask<Void, Void, Response> {
 
 	private String hostname = "192.168.1.15";

@@ -14,6 +14,7 @@ public class Parcelle {
     private double surface;
     private int nombreroute;
     private ArrayList<LatLng> coordonnes;
+    private Cepage cepage;
 
     public Parcelle()
     {
@@ -30,6 +31,15 @@ public class Parcelle {
         this.surface = surface;
         this.nombreroute = nombreroute;
         this.coordonnes = coordonnes;
+    }
+
+    public Parcelle(int ID, String IDCepage, String _libCepage, String _nom, double surface, int nombreroute, ArrayList<LatLng> coordonnes) {
+        this.ID = ID;
+        this.nom = _nom;
+        this.surface = surface;
+        this.nombreroute = nombreroute;
+        this.coordonnes = coordonnes;
+        this.cepage = new Cepage(IDCepage, _libCepage);
     }
 
     public int getID() {
@@ -49,4 +59,7 @@ public class Parcelle {
     }
 
     public String getNom() { return this.nom; }
+
+    public Cepage getCepage() { return this.cepage; }
+
 }

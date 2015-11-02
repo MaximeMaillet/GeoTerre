@@ -43,4 +43,12 @@ public class ListParcelle extends ArrayList<Parcelle> {
         }
         return null;
     }
+
+    public Parcelle getFirstParcelle()
+    {
+        for(Parcelle p : this) {
+            return p;
+        }
+        return null;
+    }
 }

@@ -43,7 +43,7 @@ public class GeoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         //Drawer
         TextView name = (TextView) this.myView.findViewById(R.id.dwr_name);
-            name.setText(myParcelle.getNom());
+            name.setText(myParcelle.getNom()+"  "+myParcelle.getCepage().getLibelle());
         TextView surface = (TextView) this.myView.findViewById(R.id.dwr_surface);
         String txt_surface = this.myView.getString(R.string.dwr_surface);
             surface.setText(String.valueOf(myParcelle.getSurface())+" "+txt_surface);
