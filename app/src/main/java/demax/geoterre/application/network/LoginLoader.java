@@ -46,6 +46,10 @@ public class LoginLoader extends DataLoader {
         this.datas = _datas;
     }
 
+    /**
+     * Cette classe permet de récupérer la réponse de la requête HTTP
+     * Ici, on l'ajoute dans les sharedpreferences pour sauvegarder les logins
+     */
     public class MyCallback implements RequestCallback {
         @Override
         public void call(Response myResponse) {
@@ -56,6 +60,9 @@ public class LoginLoader extends DataLoader {
             this.onFinish();
         }
 
+        /**
+         * Une fois terminé, on envoie vers un autre loader (ici ParcelleLoader)
+         */
         @Override
         public void onFinish() {
             loaderOnFinish.load();

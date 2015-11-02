@@ -12,6 +12,8 @@ public abstract class DataLoader {
     public static final String SHAP_LOG = "demax.geoterre.views.SHAP_LOG";
     public static final String SHAP_KEY_IDACCOUNT = "SHAP_KEY_IDACCOUNT";
     public static final String SHAP_KEY_ACCESSTOKEN = "SHAP_KEY_ACCESSTOKEN";
+    public static final String SHAP_PARCELLE = "demax.geoterre.views.SHAP_PARCELLE";
+    public static final String SHAP_LAST_PARCELLE = "SHAP_LAST_PARCELLE";
     protected static final String filenamesavejson = "datasave.json";
 
     protected Context myContext;

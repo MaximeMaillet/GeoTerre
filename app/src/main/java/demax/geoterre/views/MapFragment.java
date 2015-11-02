@@ -2,6 +2,7 @@ package demax.geoterre.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -39,6 +40,7 @@ import java.util.Map;
 import demax.geoterre.R;
 import demax.geoterre.application.datas.Parcelle;
 import demax.geoterre.application.models.ListParcelle;
+import demax.geoterre.application.network.DataLoader;
 
 public class MapFragment extends Fragment {
 
@@ -69,19 +71,39 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
 
-        myMap = mMapView.getMap();
-        myMap.getUiSettings().setZoomGesturesEnabled(true);
-        myMap.setMyLocationEnabled(true);
-        myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-
-        drawParcelle();
-
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(50.060121,3.768325)).zoom(16).build();
-        myMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        this.applyFeaturesMap();
+        this.drawParcelle();
+        this.setCameraDefaultPosition();
 
         // Perform any camera updates here
         return v;
     }
+
+    private void setCameraDefaultPosition()
+    {
+        SharedPreferences sharpref = mMapView.getContext().getSharedPreferences(DataLoader.SHAP_PARCELLE, Context.MODE_PRIVATE);
+        int IDLastParcelle = sharpref.getInt(DataLoader.SHAP_LAST_PARCELLE, 2);
+        Parcelle p = ListParcelle.getInstance().getParcelleByID(IDLastParcelle);
+        LatLng ltlg = p.getCoordonnes().get(0);
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(ltlg).zoom(16).build();
+        myMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    private void applyFeaturesMap()
+    {
+        myMap = mMapView.getMap();
+        myMap.getUiSettings().setZoomGesturesEnabled(true);
+        myMap.setMyLocationEnabled(true);
+        myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+    }
+
+
+
+
+
+
+
+
 
     public LatLng getLocation()
     {

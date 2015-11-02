@@ -62,10 +62,14 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         SharedPreferences sharpref = getSharedPreferences(DataLoader.SHAP_LOG, Context.MODE_PRIVATE);
+        sharpref.edit().remove(DataLoader.SHAP_KEY_IDACCOUNT);
+        sharpref.edit().remove(DataLoader.SHAP_KEY_ACCESSTOKEN);
+        sharpref.edit().commit();
 
         if(sharpref.getInt(DataLoader.SHAP_KEY_IDACCOUNT, -1) != -1)
         {
-            this.connect();
+//           this.connect();
+            Toast.makeText(getApplicationContext(), ""+sharpref.getInt(DataLoader.SHAP_KEY_IDACCOUNT, -1), Toast.LENGTH_LONG).show();
         }
 
         // Set up the login form.
@@ -108,6 +112,12 @@ public class LoginActivity extends Activity {
         });
 
         LoginLoader lgLoad = new LoginLoader(getApplicationContext(), pcLoad);
+        String datas = "{\"email\":\""+mEmailView.getText()+"\",\"password\":\""+mPasswordView.getText()+"\"}";
+        try {
+            lgLoad.setDatas(new JSONObject(datas));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         lgLoad.load();
     }
 
@@ -155,8 +165,7 @@ public class LoginActivity extends Activity {
             // perform the user login attempt.
             showProgress(true);
 
-            //mAuthTask = new UserLoginTask(email, password);
-            //mAuthTask.execute((Void) null);
+            this.connect();
         }
     }
 

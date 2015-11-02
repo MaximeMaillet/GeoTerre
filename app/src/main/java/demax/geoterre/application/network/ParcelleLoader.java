@@ -70,6 +70,9 @@ public class ParcelleLoader extends DataLoader {
 
     private boolean read()
     {
+        // Test pour éviter persistence
+        return false;
+/*
         BufferedReader bufferedReader = null;
         StringBuilder sb = null;
         try {
@@ -89,6 +92,7 @@ public class ParcelleLoader extends DataLoader {
             e.printStackTrace();
         }
         return false;
+        */
     }
 
     /**

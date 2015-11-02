@@ -50,7 +50,6 @@ public class MapsMainActivity extends MyViews {
         // -------------
 
         // Create map fragment
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         this.map = new MapFragment();
@@ -63,14 +62,6 @@ public class MapsMainActivity extends MyViews {
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mDrawerLinearLayoutRight);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerLayout.setDrawerListener(new myDrawerListener());
-
-        // --------------
-        // Test planet drawer left
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
-        mDrawerList = (ListView) findViewById(R.id.drawer_list);
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mPlanetTitles));
-        // ----------------
-
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
