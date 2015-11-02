@@ -106,8 +106,8 @@ public class MapFragment extends Fragment {
             Marker m = myMap.addMarker(new MarkerOptions()
                     .position(p.getCoordonnes().get(0))
                     .title(p.getNom())
-                    .snippet("Surface: " + p.getSurface() + "m")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                    .snippet("Surface: " + p.getSurface() + "m"));
+                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
 
             myMap.addPolygon(new PolygonOptions()
                     .add(p.getCoordonnes().get(0), p.getCoordonnes().get(1), p.getCoordonnes().get(2), p.getCoordonnes().get(3))
